@@ -1,6 +1,8 @@
-# Mutual GitHub Followers and Not
+# Mutual GitHub Followers and Non-Mutual
 
 It is a micro project to help you find mutual and not mutual followers on GitHub. This uses an official API with a token (not included).
+
+![Demo screenshot](https://raw.githubusercontent.com/bouvens/mutual-github/main/screenshot.png)
 
 ## Getting Started
 
