@@ -7,7 +7,7 @@ const auth = process.env.GITHUB_TOKEN;
 export const metadata = {
   title: 'Mutual Github',
   description: 'Check out and count your mutual and not mutual followers on GitHub.',
-}
+};
 
 const octokit = new Octokit({
   auth,
@@ -44,12 +44,11 @@ export default async function Home() {
     mutual: [],
     notMutual: [],
   });
-  const testMutual = mutual.slice(0, 100);
 
   return (
     <main className={styles.main}>
       <h2>
-        Not Mutual Following ({notMutual.length})
+        Non-Mutual Following ({notMutual.length})
       </h2>
       <div className={styles.cards}>
         {notMutual.map(follower => <p key={follower.login} className={styles.userCard}>
@@ -57,17 +56,9 @@ export default async function Home() {
             width={64}
             src={follower.avatar_url}
             alt={`${follower.login} avatar`}
-          /> {follower.login}
+          /> <span>{follower.login}</span>
           </a></p>)}
       </div>
-
-      <h2>
-        Mutual Following ({testMutual.length})
-      </h2>
-      <p className={styles.enumerated}>{testMutual.map(follower => <a
-        href={`https://github.com/${follower.login}`}
-        key={follower.login}
-      >{follower.login}</a>)}</p>
 
       <h2>
         Not Followed Followers ({followerLogins.size})
@@ -76,6 +67,13 @@ export default async function Home() {
         href={`https://github.com/${login}`}
         key={login}
       >{login}</a>)}</p>
+
+      <h2>
+        Mutual Following ({mutual.length})
+      </h2>
+      <p className={styles.enumerated}>{mutual.map(follower => <span key={follower.login}><a
+        href={`https://github.com/${follower.login}`}
+      >{follower.login}</a></span>)}</p>
     </main>
   );
 }
