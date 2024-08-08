@@ -63,10 +63,9 @@ export default async function Home() {
       <h2>
         Not Followed Followers ({followerLogins.size})
       </h2>
-      <p className={styles.enumerated}>{Array.from(followerLogins).map(login => <a
+      <p className={styles.enumerated}>{Array.from(followerLogins).map(login => <span key={login}><a
         href={`https://github.com/${login}`}
-        key={login}
-      >{login}</a>)}</p>
+      >{login}</a></span>)}</p>
 
       <h2>
         Mutual Following ({mutual.length})
