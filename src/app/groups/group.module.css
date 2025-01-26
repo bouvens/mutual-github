@@ -1,0 +1,22 @@
+.cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.enumerated span + span:before {
+  content: ", ";
+}
+
+.enumerated a {
+  text-decoration: underline 0.5px;
+}
+
+.userCard img {
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.userCard span {
+  text-decoration: underline 0.5px;
+}

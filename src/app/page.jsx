@@ -1,5 +1,5 @@
 import styles from './page.module.css';
-import { Groups } from './groups';
+import { Groups } from './groups/groups';
 
 const auth = process.env.GITHUB_TOKEN;
 
