@@ -43,6 +43,7 @@ export const useGetGroups = (auth: string) => {
     const followers: Follower[] = await octokit.paginate('GET /user/followers', {
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',
+        'If-None-Match': '',
       },
       per_page: PER_PAGE_DEFAULT,
     })
