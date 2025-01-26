@@ -1,77 +1,25 @@
 'use client'
-import React, { useState, useCallback, useEffect } from 'react'
-import { Octokit } from 'octokit'
 import styles from './page.module.css'
-
-const PER_PAGE_DEFAULT = 100
+import { useGetGroups } from './groups/useGetGroups'
+import Loading from './loading'
 
 export function Groups ({ auth }: { auth: string }) {
-  const [allGroups, setAllGroups] = useState({
-    mutual: [],
-    notMutual: [],
-    followerLogins: new Set<string>(),
-  })
-  const [loading, setLoading] = useState(false)
+  const { allGroups, error, isLoading, reload } = useGetGroups(auth)
+  if (error) {
+    return <p>Error: {error}</p>
+  }
+  
 
-  const getGroups = useCallback(async function () {
-    setLoading(true)
-    const octokit = new Octokit({
-      auth,
-    })
-    // https://docs.github.com/en/rest/users/followers
-    const followers = await octokit.paginate('GET /user/followers', {
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-      per_page: PER_PAGE_DEFAULT,
-    })
-    const followerLogins = new Set<string>(followers.map(follower => follower.login))
-    // https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api
-    const following = await octokit.paginate('GET /user/following', {
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-      per_page: PER_PAGE_DEFAULT,
-    })
-    const { mutual, notMutual } = following.reduce(({ mutual, notMutual }, currentFollowing) => {
-      if (followerLogins.has(currentFollowing.login)) {
-        mutual.push(currentFollowing)
-        followerLogins.delete(currentFollowing.login)
-      } else {
-        notMutual.push(currentFollowing)
-      }
-      return {
-        mutual,
-        notMutual,
-      }
-    }, {
-      mutual: [],
-      notMutual: [],
-    })
-
-    setAllGroups({
-      mutual,
-      notMutual,
-      followerLogins,
-    })
-    setLoading(false)
-  }, [auth])
-
-  useEffect(() => {
-    getGroups()
-  }, [getGroups])
-
-  if (loading) {
+  if (isLoading) {
     return <p>Loading...</p>
   }
 
   const { mutual, notMutual, followerLogins } = allGroups
 
+  // TODO extract a group component
   return (
     <>
-      <button onClick={() => {
-        getGroups()
-      }}>Refresh</button>
+      <button onClick={reload}>Refresh</button>
       <h2>
         Non-Mutual Following ({notMutual.length})
       </h2>
