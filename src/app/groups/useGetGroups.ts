@@ -33,6 +33,11 @@ export const useGetGroups = (auth: string) => {
 
   const getGroups = useCallback(
     async function () {
+      if (!auth) {
+        setIsInitialLoad(false);
+        return;
+      }
+
       setError(null);
 
       try {
@@ -71,6 +76,8 @@ export const useGetGroups = (auth: string) => {
           notMutual,
           notFollowed: notFollowed as Follower[],
         });
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Failed to fetch data');
       } finally {
         setIsInitialLoad(false);
       }
@@ -79,8 +86,18 @@ export const useGetGroups = (auth: string) => {
   );
 
   useEffect(() => {
-    getGroups();
-  }, [getGroups]);
+    setIsInitialLoad(true);
+    setAllGroups({
+      mutual: [],
+      notMutual: [],
+      notFollowed: [],
+    });
+    setError(null);
+
+    if (auth) {
+      getGroups();
+    }
+  }, [getGroups, auth]);
 
   return {
     allGroups,
