@@ -11,6 +11,16 @@
   text-decoration: underline 0.5px;
 }
 
+.enumerated .userCard {
+  display: inline;
+}
+
+.cards .userCard {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .userCard img {
   vertical-align: middle;
   display: inline-block;
@@ -19,4 +29,35 @@
 
 .userCard span {
   text-decoration: underline 0.5px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.actionButton {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.actionButton:hover {
+  background-color: #c82333;
+}
+
+.actionButton:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
 }

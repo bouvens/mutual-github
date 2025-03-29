@@ -18,7 +18,7 @@ export function Groups ({ auth }: { auth: string }) {
   return (
     <>
       <button onClick={reload}>Refresh</button>
-      <Group title="Non-Mutual Following" followers={notMutual} />
+      <Group title="Non-Mutual Following" followers={notMutual} auth={auth} onReload={reload} />
       <Group title="Not Followed Followers" followers={notFollowed} enumerated />
       <Group title="Mutual Following" followers={mutual} enumerated />
     </>

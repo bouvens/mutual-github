@@ -1,5 +1,5 @@
-import { Octokit } from "octokit"
 import { useCallback, useEffect, useState } from "react"
+import { GitHubAPI } from "../github/api"
 
 const PER_PAGE_DEFAULT = 100
 
@@ -36,49 +36,41 @@ export const useGetGroups = (auth: string) => {
   const getGroups = useCallback(async function () {
     setIsLoading(true)
     setError(null)
-    const octokit = new Octokit({
-      auth,
-    })
-    // https://docs.github.com/en/rest/users/followers
-    const followers: Follower[] = await octokit.paginate('GET /user/followers', {
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28',
-        'If-None-Match': '',
-      },
-      per_page: PER_PAGE_DEFAULT,
-    })
-    const followerLogins = new Set<string>(followers.map(follower => follower.login))
-    // https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api
-    const following = await octokit.paginate('GET /user/following', {
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-      per_page: PER_PAGE_DEFAULT,
-    })
-    const { mutual, notMutual } = following.reduce(({ mutual, notMutual }, currentFollowing) => {
-      if (followerLogins.has(currentFollowing.login)) {
-        mutual.push(currentFollowing)
-        followerLogins.delete(currentFollowing.login)
-      } else {
-        notMutual.push(currentFollowing)
-      }
-      return {
+    
+    try {
+      const api = new GitHubAPI(auth)
+      const followers: Follower[] = await api.getFollowers()
+      const followerLogins = new Set<string>(followers.map(follower => follower.login))
+      const following = await api.getFollowing()
+
+      const { mutual, notMutual } = following.reduce(({ mutual, notMutual }, currentFollowing) => {
+        if (followerLogins.has(currentFollowing.login)) {
+          mutual.push(currentFollowing)
+          followerLogins.delete(currentFollowing.login)
+        } else {
+          notMutual.push(currentFollowing)
+        }
+        return {
+          mutual,
+          notMutual,
+        }
+      }, {
+        mutual: [],
+        notMutual: [],
+      })
+
+      const notFollowed = Array.from(followerLogins).map(login => followers.find((follower) => follower.login === login))
+
+      setAllGroups({
         mutual,
         notMutual,
-      }
-    }, {
-      mutual: [],
-      notMutual: [],
-    })
-
-    const notFollowed = Array.from(followerLogins).map(login => followers.find((follower) => follower.login === login))
-
-    setAllGroups({
-      mutual,
-      notMutual,
-      notFollowed,
-    })
-    setIsLoading(false)
+        notFollowed,
+      })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch data')
+    } finally {
+      setIsLoading(false)
+    }
   }, [auth])
 
   useEffect(() => {
