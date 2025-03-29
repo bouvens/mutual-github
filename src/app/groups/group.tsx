@@ -106,6 +106,7 @@ export const Group: React.FC<GroupProps> = ({ title, followers, enumerated, auth
                     width={64}
                     src={follower.avatar_url}
                     alt={`${follower.login} avatar`}
+                    className={styles.avatar}
                   />
                   <span>{follower.login}</span>
                 </a>
