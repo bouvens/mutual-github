@@ -1,6 +1,7 @@
 import { Octokit } from 'octokit';
 
 const API_VERSION = '2022-11-28';
+const PER_PAGE_DEFAULT = 100;
 
 export class GitHubAPI {
   private octokit: Octokit;
@@ -20,14 +21,14 @@ export class GitHubAPI {
   async getFollowers() {
     return this.octokit.paginate('GET /user/followers', {
       headers: this.getHeaders(),
-      per_page: 100,
+      per_page: PER_PAGE_DEFAULT,
     });
   }
 
   async getFollowing() {
     return this.octokit.paginate('GET /user/following', {
       headers: this.getHeaders(),
-      per_page: 100,
+      per_page: PER_PAGE_DEFAULT,
     });
   }
 

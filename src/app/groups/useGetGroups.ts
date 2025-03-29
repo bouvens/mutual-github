@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { GitHubAPI } from "../github/api"
 
-const PER_PAGE_DEFAULT = 100
-
 type Follower = {
   login:               string;
   id:                  number;
@@ -26,15 +24,14 @@ type Follower = {
 
 export const useGetGroups = (auth: string) => {
   const [allGroups, setAllGroups] = useState({
-    mutual: [],
-    notMutual: [],
-    notFollowed: [],
+    mutual: [] as Follower[],
+    notMutual: [] as Follower[],
+    notFollowed: [] as Follower[],
   })
-  const [isLoading, setIsLoading] = useState(true)
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const getGroups = useCallback(async function () {
-    setIsLoading(true)
     setError(null)
     
     try {
@@ -55,8 +52,8 @@ export const useGetGroups = (auth: string) => {
           notMutual,
         }
       }, {
-        mutual: [],
-        notMutual: [],
+        mutual: [] as Follower[],
+        notMutual: [] as Follower[],
       })
 
       const notFollowed = Array.from(followerLogins).map(login => followers.find((follower) => follower.login === login))
@@ -64,12 +61,10 @@ export const useGetGroups = (auth: string) => {
       setAllGroups({
         mutual,
         notMutual,
-        notFollowed,
+        notFollowed: notFollowed as Follower[],
       })
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch data')
     } finally {
-      setIsLoading(false)
+      setIsInitialLoad(false)
     }
   }, [auth])
 
@@ -80,7 +75,7 @@ export const useGetGroups = (auth: string) => {
   return {
     allGroups,
     error,
-    isLoading,
+    isInitialLoad,
     reload: getGroups,
   }
 }

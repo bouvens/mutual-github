@@ -1,15 +1,24 @@
 'use client'
+import { useState } from 'react'
 import { useGetGroups } from './useGetGroups'
 import { Group } from './group'
+import styles from './groups.module.css'
 
 export function Groups ({ auth }: { auth: string }) {
-  const { allGroups, error, isLoading, reload } = useGetGroups(auth)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const { allGroups, error, isInitialLoad, reload } = useGetGroups(auth)
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true)
+    await reload()
+    setIsRefreshing(false)
+  }
+
   if (error) {
     return <p>Error: {error}</p>
   }
-  
 
-  if (isLoading) {
+  if (isInitialLoad) {
     return <p>Loading...</p>
   }
 
@@ -17,8 +26,26 @@ export function Groups ({ auth }: { auth: string }) {
 
   return (
     <>
-      <button onClick={reload}>Refresh</button>
-      <Group title="Non-Mutual Following" followers={notMutual} auth={auth} onReload={reload} />
+      <button 
+        onClick={handleRefresh} 
+        disabled={isRefreshing}
+        className={styles.refreshButton}
+      >
+        {isRefreshing ? (
+          <>
+            <span className={styles.spinner} />
+            Refreshing...
+          </>
+        ) : (
+          'Refresh'
+        )}
+      </button>
+      <Group 
+        title="Non-Mutual Following" 
+        followers={notMutual} 
+        auth={auth} 
+        onReload={handleRefresh} 
+      />
       <Group title="Not Followed Followers" followers={notFollowed} enumerated />
       <Group title="Mutual Following" followers={mutual} enumerated />
     </>
