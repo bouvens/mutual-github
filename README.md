@@ -27,6 +27,7 @@ Open [http://localhost:3001](http://localhost:3001) with your browser to see the
 Start editing the page by modifying `app/page.jsx`. The page auto-updates as you edit the file.
 
 ## Links
-* GitHub API for [followers](https://docs.github.com/en/rest/users/followers)
-* GitHub API for [pagination](https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api)
-* <a target="_blank" href="https://icons8.com/icon/92484/safety-collection-place">Connections</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+- GitHub API for [followers](https://docs.github.com/en/rest/users/followers)
+- GitHub API for [pagination](https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api)
+- <a target="_blank" href="https://icons8.com/icon/92484/safety-collection-place">Connections</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>

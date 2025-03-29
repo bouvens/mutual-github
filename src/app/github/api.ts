@@ -38,4 +38,4 @@ export class GitHubAPI {
       headers: this.getHeaders(),
     });
   }
-} 
+}

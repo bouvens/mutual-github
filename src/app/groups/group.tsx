@@ -10,26 +10,37 @@ interface GroupProps {
   onReload?: () => Promise<void>;
 }
 
-export const Group: React.FC<GroupProps> = ({ title, followers, enumerated, auth, onReload }) => {
+export const Group: React.FC<GroupProps> = ({
+  title,
+  followers,
+  enumerated,
+  auth,
+  onReload,
+}) => {
   const storageKey = `selectedFollowers_${title}`;
   const [isUnfollowing, setIsUnfollowing] = useState(false);
-  
-  const [selectedFollowers, setSelectedFollowers] = useState<Set<string>>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem(storageKey);
-      return stored ? new Set(JSON.parse(stored)) : new Set();
+
+  const [selectedFollowers, setSelectedFollowers] = useState<Set<string>>(
+    () => {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem(storageKey);
+        return stored ? new Set(JSON.parse(stored)) : new Set();
+      }
+      return new Set();
     }
-    return new Set();
-  });
+  );
 
   useEffect(() => {
     if (!enumerated) {
-      localStorage.setItem(storageKey, JSON.stringify(Array.from(selectedFollowers)));
+      localStorage.setItem(
+        storageKey,
+        JSON.stringify(Array.from(selectedFollowers))
+      );
     }
   }, [selectedFollowers, storageKey, enumerated]);
 
   const handleCheckboxChange = (login: string) => {
-    setSelectedFollowers(prev => {
+    setSelectedFollowers((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(login)) {
         newSet.delete(login);
@@ -47,8 +58,8 @@ export const Group: React.FC<GroupProps> = ({ title, followers, enumerated, auth
     }
 
     const uncheckedFollowers = followers
-      .filter(follower => !selectedFollowers.has(follower.login))
-      .map(follower => follower.login);
+      .filter((follower) => !selectedFollowers.has(follower.login))
+      .map((follower) => follower.login);
 
     if (uncheckedFollowers.length === 0) return;
 
@@ -60,7 +71,7 @@ export const Group: React.FC<GroupProps> = ({ title, followers, enumerated, auth
 
     setIsUnfollowing(true);
     const api = new GitHubAPI(auth);
-    
+
     try {
       for (const login of uncheckedFollowers) {
         await api.unfollowUser(login);
@@ -75,11 +86,13 @@ export const Group: React.FC<GroupProps> = ({ title, followers, enumerated, auth
   };
 
   return (
-    <> 
-      <h2>{title} ({followers.length})</h2>
+    <>
+      <h2>
+        {title} ({followers.length})
+      </h2>
       {enumerated ? (
         <p className={styles.enumerated}>
-          {followers.map(follower => (
+          {followers.map((follower) => (
             <span key={follower.login} className={styles.userCard}>
               <a href={`https://github.com/${follower.login}`}>
                 {follower.login}
@@ -90,9 +103,9 @@ export const Group: React.FC<GroupProps> = ({ title, followers, enumerated, auth
       ) : (
         <>
           <div className={styles.cards}>
-            {followers.map(follower => (
+            {followers.map((follower) => (
               <p key={follower.login} className={styles.userCard}>
-                {title === "Non-Mutual Following" && (
+                {title === 'Non-Mutual Following' && (
                   <label className={styles.checkbox}>
                     <input
                       type="checkbox"
@@ -113,11 +126,13 @@ export const Group: React.FC<GroupProps> = ({ title, followers, enumerated, auth
               </p>
             ))}
           </div>
-          {title === "Non-Mutual Following" && (
-            <button 
+          {title === 'Non-Mutual Following' && (
+            <button
               className={styles.actionButton}
               onClick={handleUnfollowUnchecked}
-              disabled={followers.length === selectedFollowers.size || isUnfollowing}
+              disabled={
+                followers.length === selectedFollowers.size || isUnfollowing
+              }
             >
               {isUnfollowing ? 'Unfollowing...' : 'Unfollow Unchecked'}
             </button>

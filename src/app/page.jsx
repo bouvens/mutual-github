@@ -5,7 +5,8 @@ const auth = process.env.GITHUB_TOKEN;
 
 export const metadata = {
   title: 'Mutual Github',
-  description: 'Check out and count your mutual and not mutual followers on GitHub.',
+  description:
+    'Check out and count your mutual and not mutual followers on GitHub.',
 };
 
 export default function Home() {

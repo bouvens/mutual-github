@@ -1,33 +1,33 @@
-'use client'
-import { useState } from 'react'
-import { useGetGroups } from './useGetGroups'
-import { Group } from './group'
-import styles from './groups.module.css'
+'use client';
+import { useState } from 'react';
+import { useGetGroups } from './useGetGroups';
+import { Group } from './group';
+import styles from './groups.module.css';
 
-export function Groups ({ auth }: { auth: string }) {
-  const [isRefreshing, setIsRefreshing] = useState(false)
-  const { allGroups, error, isInitialLoad, reload } = useGetGroups(auth)
+export function Groups({ auth }: { auth: string }) {
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const { allGroups, error, isInitialLoad, reload } = useGetGroups(auth);
 
   const handleRefresh = async () => {
-    setIsRefreshing(true)
-    await reload()
-    setIsRefreshing(false)
-  }
+    setIsRefreshing(true);
+    await reload();
+    setIsRefreshing(false);
+  };
 
   if (error) {
-    return <p>Error: {error}</p>
+    return <p>Error: {error}</p>;
   }
 
   if (isInitialLoad) {
-    return <p>Loading...</p>
+    return <p>Loading...</p>;
   }
 
-  const { mutual, notMutual, notFollowed } = allGroups
+  const { mutual, notMutual, notFollowed } = allGroups;
 
   return (
     <>
-      <button 
-        onClick={handleRefresh} 
+      <button
+        onClick={handleRefresh}
         disabled={isRefreshing}
         className={styles.refreshButton}
       >
@@ -40,14 +40,18 @@ export function Groups ({ auth }: { auth: string }) {
           'Refresh'
         )}
       </button>
-      <Group 
-        title="Non-Mutual Following" 
-        followers={notMutual} 
-        auth={auth} 
-        onReload={handleRefresh} 
+      <Group
+        title="Non-Mutual Following"
+        followers={notMutual}
+        auth={auth}
+        onReload={handleRefresh}
       />
-      <Group title="Not Followed Followers" followers={notFollowed} enumerated />
+      <Group
+        title="Not Followed Followers"
+        followers={notFollowed}
+        enumerated
+      />
       <Group title="Mutual Following" followers={mutual} enumerated />
     </>
-  )
+  );
 }
