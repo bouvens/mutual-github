@@ -1,7 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { useGetGroups } from './useGetGroups';
-import { Group } from './group';
+import { NonMutualFollowingGroup } from './components/NonMutualFollowingGroup';
+import { NotFollowedFollowersGroup } from './components/NotFollowedFollowersGroup';
+import { MutualFollowingGroup } from './components/MutualFollowingGroup';
 import styles from './groups.module.css';
 
 export function Groups({
@@ -62,18 +64,17 @@ export function Groups({
           Update Token
         </button>
       </div>
-      <Group
-        title="Non-Mutual Following"
+      <NonMutualFollowingGroup
         followers={notMutual}
         auth={auth}
         onReload={handleRefresh}
       />
-      <Group
-        title="Not Followed Followers"
+      <NotFollowedFollowersGroup
         followers={notFollowed}
-        enumerated
+        auth={auth}
+        onReload={handleRefresh}
       />
-      <Group title="Mutual Following" followers={mutual} enumerated />
+      <MutualFollowingGroup followers={mutual} />
     </>
   );
 }

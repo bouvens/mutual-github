@@ -38,4 +38,11 @@ export class GitHubAPI {
       headers: this.getHeaders(),
     });
   }
+
+  async followUser(username: string) {
+    await this.octokit.request('PUT /user/following/{username}', {
+      username,
+      headers: this.getHeaders(),
+    });
+  }
 }
