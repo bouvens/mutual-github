@@ -62,6 +62,21 @@
   font-size: 1rem;
 }
 
+.tokenInfo {
+  font-size: 0.9rem !important;
+  color: #666 !important;
+  line-height: 1.5;
+}
+
+.tokenInfo a {
+  color: #0070f3;
+  text-decoration: underline;
+}
+
+.tokenInfo a:hover {
+  text-decoration: none;
+}
+
 .noToken .tokenButton {
   margin: 0 auto;
 }
@@ -73,5 +88,13 @@
 
   .noToken p {
     color: #fff;
+  }
+
+  .tokenInfo {
+    color: #999 !important;
+  }
+
+  .tokenInfo a {
+    color: #3291ff;
   }
 }

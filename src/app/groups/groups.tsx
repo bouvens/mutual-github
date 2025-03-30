@@ -26,6 +26,18 @@ export function Groups({
     return (
       <div className={styles.noToken}>
         <p>GitHub token is required to use this application</p>
+        <p className={styles.tokenInfo}>
+          You can generate one at{' '}
+          <a
+            href="https://github.com/settings/tokens"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub Settings
+          </a>
+          <br />
+          Required scopes: read:user, user:follow
+        </p>
         <button onClick={onTokenUpdate} className={styles.tokenButton}>
           Enter Token
         </button>
