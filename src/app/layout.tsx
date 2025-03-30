@@ -1,9 +1,14 @@
 import { Inter } from 'next/font/google';
+import { Analytics } from '../components/analytics';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -15,6 +20,7 @@ export default function RootLayout({ children }) {
             alt="Fork me on GitHub"
           />
         </a>
+        <Analytics />
       </body>
     </html>
   );
