@@ -1,32 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import { GitHubAPI } from '../github/api';
-
-type Follower = {
-  login: string;
-  id: number;
-  node_id: string;
-  avatar_url: string;
-  gravatar_id: string;
-  url: string;
-  html_url: string;
-  followers_url: string;
-  following_url: string;
-  gists_url: string;
-  starred_url: string;
-  subscriptions_url: string;
-  organizations_url: string;
-  repos_url: string;
-  events_url: string;
-  received_events_url: string;
-  type: string;
-  site_admin: boolean;
-};
+import { GitHubAPI } from '@/lib/github/api';
+import type { GitHubFollower } from '@/lib/github/types';
 
 export const useGetGroups = (auth: string) => {
   const [allGroups, setAllGroups] = useState({
-    mutual: [] as Follower[],
-    notMutual: [] as Follower[],
-    notFollowed: [] as Follower[],
+    mutual: [] as GitHubFollower[],
+    notMutual: [] as GitHubFollower[],
+    notFollowed: [] as GitHubFollower[],
   });
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +22,7 @@ export const useGetGroups = (auth: string) => {
 
       try {
         const api = new GitHubAPI(auth);
-        const followers: Follower[] = await api.getFollowers();
+        const followers: GitHubFollower[] = await api.getFollowers();
         const followerLogins = new Set<string>(
           followers.map((follower) => follower.login)
         );
@@ -62,8 +42,8 @@ export const useGetGroups = (auth: string) => {
             };
           },
           {
-            mutual: [] as Follower[],
-            notMutual: [] as Follower[],
+            mutual: [] as GitHubFollower[],
+            notMutual: [] as GitHubFollower[],
           }
         );
 
@@ -74,7 +54,7 @@ export const useGetGroups = (auth: string) => {
         setAllGroups({
           mutual,
           notMutual,
-          notFollowed: notFollowed as Follower[],
+          notFollowed: notFollowed as GitHubFollower[],
         });
       } catch (e) {
         setError(e instanceof Error ? e.message : 'Failed to fetch data');

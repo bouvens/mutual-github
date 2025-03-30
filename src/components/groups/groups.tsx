@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useGetGroups } from './useGetGroups';
+import { useGetGroups } from '@/hooks/useGetGroups';
 import { NonMutualFollowingGroup } from './components/NonMutualFollowingGroup';
 import { NotFollowedFollowersGroup } from './components/NotFollowedFollowersGroup';
 import { MutualFollowingGroup } from './components/MutualFollowingGroup';

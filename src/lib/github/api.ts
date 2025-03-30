@@ -1,4 +1,5 @@
 import { Octokit } from 'octokit';
+import type { GitHubFollower } from './types';
 
 const API_VERSION = '2022-11-28';
 const PER_PAGE_DEFAULT = 100;
@@ -18,15 +19,15 @@ export class GitHubAPI {
     };
   }
 
-  async getFollowers() {
-    return this.octokit.paginate('GET /user/followers', {
+  async getFollowers(): Promise<GitHubFollower[]> {
+    return this.octokit.paginate<GitHubFollower>('GET /user/followers', {
       headers: this.getHeaders(),
       per_page: PER_PAGE_DEFAULT,
     });
   }
 
-  async getFollowing() {
-    return this.octokit.paginate('GET /user/following', {
+  async getFollowing(): Promise<GitHubFollower[]> {
+    return this.octokit.paginate<GitHubFollower>('GET /user/following', {
       headers: this.getHeaders(),
       per_page: PER_PAGE_DEFAULT,
     });

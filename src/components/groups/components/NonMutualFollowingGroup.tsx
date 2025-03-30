@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { GitHubAPI } from '../../github/api';
+import { GitHubAPI } from '@/lib/github/api';
 import { UserCardList } from './UserCardList';
 import styles from '../group.module.css';
 

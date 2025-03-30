@@ -1,7 +1,7 @@
 'use client';
-import styles from './page.module.css';
-import { Groups } from './groups/groups';
 import { useEffect, useState } from 'react';
+import { Groups } from '@/components/groups/groups';
+import styles from './page.module.css';
 
 const TOKEN_STORAGE_KEY = 'githubToken';
 

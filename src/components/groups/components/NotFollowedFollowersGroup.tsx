@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { GitHubAPI } from '../../github/api';
+import { GitHubAPI } from '@/lib/github/api';
 import { UserInlineList } from './UserInlineList';
 import styles from '../group.module.css';
 
