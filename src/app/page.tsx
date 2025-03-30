@@ -15,12 +15,24 @@ export default function Home() {
         'Required scopes: read:user, user:follow\n\n' +
         "Note: The token will be stored only in your browser's local storage and sent only to GitHub."
     );
-    if (newToken?.trim()) {
-      localStorage.setItem(TOKEN_STORAGE_KEY, newToken.trim());
-      setToken(newToken.trim());
-    } else {
+
+    // If user clicked "Cancel"
+    if (newToken === null) {
+      // Only update state if we don't have a token yet
+      if (!token) {
+        setToken('');
+      }
+    } else if (!newToken.trim()) {
+      // If user entered an empty token
+      localStorage.removeItem(TOKEN_STORAGE_KEY);
       setToken('');
+    } else {
+      // If user entered a new token
+      const trimmedToken = newToken.trim();
+      localStorage.setItem(TOKEN_STORAGE_KEY, trimmedToken);
+      setToken(trimmedToken);
     }
+
     setIsInitializing(false);
   };
 
