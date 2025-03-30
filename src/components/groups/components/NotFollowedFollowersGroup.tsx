@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import clsx from 'clsx';
 import { GitHubAPI } from '@/lib/github/api';
 import { UserInlineList } from './UserInlineList';
-import styles from '../group.module.css';
+import styles from './ActionButton.module.css';
+import commonStyles from './common.module.css';
 
 interface NotFollowedFollowersGroupProps {
   followers: { login: string; avatar_url: string }[];
@@ -37,15 +39,21 @@ export const NotFollowedFollowersGroup: React.FC<
     }
   };
 
+  const isDisabled = isFollowing;
+
   return (
     <>
       <h2>Not Followed Followers ({followers.length})</h2>
       <UserInlineList followers={followers} />
       {followers.length > 0 && (
         <button
-          className={`${styles.actionButton} ${styles.followButton}`}
+          className={clsx(
+            styles.actionButton,
+            styles.followButton,
+            isDisabled && commonStyles.disabledButton
+          )}
           onClick={handleFollowAll}
-          disabled={isFollowing}
+          disabled={isDisabled}
         >
           {isFollowing ? 'Following...' : `Follow All (${followers.length})`}
         </button>

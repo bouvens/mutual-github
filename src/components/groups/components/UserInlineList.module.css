@@ -1,0 +1,7 @@
+.enumerated span + span:before {
+  content: ', ';
+}
+
+.userCard {
+  display: inline;
+}

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import clsx from 'clsx';
 import { GitHubAPI } from '@/lib/github/api';
 import { UserCardList } from './UserCardList';
-import styles from '../group.module.css';
+import styles from './ActionButton.module.css';
+import commonStyles from './common.module.css';
 
 interface NonMutualFollowingGroupProps {
   followers: { login: string; avatar_url: string }[];
@@ -75,6 +77,9 @@ export const NonMutualFollowingGroup: React.FC<
     }
   };
 
+  const isDisabled =
+    followers.length === selectedFollowers.size || isUnfollowing;
+
   return (
     <>
       <h2>Non-Mutual Following ({followers.length})</h2>
@@ -83,13 +88,18 @@ export const NonMutualFollowingGroup: React.FC<
         selectedFollowers={selectedFollowers}
         onCheckboxChange={handleCheckboxChange}
       />
-      <button
-        className={styles.actionButton}
-        onClick={handleUnfollowUnchecked}
-        disabled={followers.length === selectedFollowers.size || isUnfollowing}
-      >
-        {isUnfollowing ? 'Unfollowing...' : 'Unfollow Unchecked'}
-      </button>
+      {followers.length > 0 && (
+        <button
+          className={clsx(
+            styles.actionButton,
+            isDisabled && commonStyles.disabledButton
+          )}
+          onClick={handleUnfollowUnchecked}
+          disabled={isDisabled}
+        >
+          {isUnfollowing ? 'Unfollowing...' : 'Unfollow Unchecked'}
+        </button>
+      )}
     </>
   );
 };

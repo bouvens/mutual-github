@@ -1,4 +1,5 @@
-import styles from '../group.module.css';
+import styles from './UserCardList.module.css';
+import commonStyles from './common.module.css';
 
 interface UserCardListProps {
   followers: { login: string; avatar_url: string }[];
@@ -28,7 +29,7 @@ export const UserCardList: React.FC<UserCardListProps> = ({
             alt={`${follower.login} avatar`}
             className={styles.avatar}
           />
-          <span>{follower.login}</span>
+          <span className={commonStyles.linkText}>{follower.login}</span>
         </a>
       </p>
     ))}

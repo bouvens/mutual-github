@@ -23,11 +23,6 @@
   background: #0051b3;
 }
 
-.refreshButton:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 .spinner {
   width: 16px;
   height: 16px;

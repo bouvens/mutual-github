@@ -1,0 +1,9 @@
+.linkText {
+  text-decoration: underline 0.5px;
+}
+
+.disabledButton {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

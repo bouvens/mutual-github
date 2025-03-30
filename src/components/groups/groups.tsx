@@ -1,9 +1,11 @@
 'use client';
 import { useState } from 'react';
+import clsx from 'clsx';
 import { useGetGroups } from '@/hooks/useGetGroups';
 import { NonMutualFollowingGroup } from './components/NonMutualFollowingGroup';
 import { NotFollowedFollowersGroup } from './components/NotFollowedFollowersGroup';
 import { MutualFollowingGroup } from './components/MutualFollowingGroup';
+import commonStyles from './components/common.module.css';
 import styles from './groups.module.css';
 
 export function Groups({
@@ -61,7 +63,10 @@ export function Groups({
         <button
           onClick={handleRefresh}
           disabled={isRefreshing}
-          className={styles.refreshButton}
+          className={clsx(
+            styles.refreshButton,
+            isRefreshing && commonStyles.disabledButton
+          )}
         >
           {isRefreshing ? (
             <>

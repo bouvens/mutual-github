@@ -1,0 +1,27 @@
+.cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.userCard {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.avatar {
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
