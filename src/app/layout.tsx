@@ -4,6 +4,11 @@ import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
+export const metadata = {
+  title: 'Mutual GitHub',
+  description: 'Explore and update your GitHub connections',
+};
+
 export default function RootLayout({
   children,
 }: {
