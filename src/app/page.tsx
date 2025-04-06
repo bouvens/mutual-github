@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Groups } from '@/components/groups/groups';
-import styles from './page.module.css';
 
 const TOKEN_STORAGE_KEY = 'githubToken';
 
@@ -45,7 +44,7 @@ export default function Home() {
   }
 
   return (
-    <main className={styles.main}>
+    <main>
       <Groups auth={token || ''} onTokenUpdate={promptForToken} />
     </main>
   );

@@ -94,10 +94,20 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  padding: 1rem 2rem 3rem;
+  min-height: 100vh;
+}
+
+h2 {
+  margin: 2rem 0 1rem;
 }
 
 a {
-  color: inherit;
+  color: #0070f3;
+  text-decoration: underline;
+}
+
+a:hover {
   text-decoration: none;
 }
 
@@ -109,5 +119,9 @@ button {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+
+  a {
+    color: #3291ff;
   }
 }
