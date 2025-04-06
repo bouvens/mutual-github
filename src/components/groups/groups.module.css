@@ -41,7 +41,7 @@
 .noToken {
   text-align: center;
   padding: 2rem;
-  max-width: 400px;
+  max-width: 500px;
   margin: 2rem auto;
   border: 1px solid #eaeaea;
   border-radius: 8px;
@@ -51,25 +51,34 @@
   background: #f5f5f5;
 }
 
+.noToken h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
 .noToken p {
   margin-bottom: 1rem;
   color: #333;
   font-size: 1rem;
 }
 
+.featuresList {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  color: #333;
+  width: 100%;
+  padding-left: 1rem;
+}
+
+.featuresList li {
+  margin-bottom: 0.5rem;
+  list-style-type: circle;
+}
+
 .tokenInfo {
   font-size: 0.9rem !important;
   color: #666 !important;
   line-height: 1.5;
-}
-
-.tokenInfo a {
-  color: #0070f3;
-  text-decoration: underline;
-}
-
-.tokenInfo a:hover {
-  text-decoration: none;
 }
 
 .noToken .tokenButton {
@@ -81,15 +90,14 @@
     background: transparent;
   }
 
-  .noToken p {
+  .noToken h2,
+  .noToken p,
+  .featuresList,
+  .featuresList li {
     color: #fff;
   }
 
   .tokenInfo {
     color: #999 !important;
-  }
-
-  .tokenInfo a {
-    color: #3291ff;
   }
 }

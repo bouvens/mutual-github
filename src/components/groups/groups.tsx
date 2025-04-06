@@ -27,6 +27,14 @@ export function Groups({
   if (!auth) {
     return (
       <div className={styles.noToken}>
+        <h2>Mutual and Non-Mutual GitHub Followers</h2>
+        <p>This application helps you manage your GitHub connections:</p>
+        <ul className={styles.featuresList}>
+          <li>See who follows you back (mutual followers)</li>
+          <li>Identify users you follow who don&apos;t follow you back</li>
+          <li>Find followers you&apos;re not following yet</li>
+          <li>Easily unfollow or follow users in batch</li>
+        </ul>
         <p>GitHub token is required to use this application</p>
         <p className={styles.tokenInfo}>
           You can generate one at{' '}
