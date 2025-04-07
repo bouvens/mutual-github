@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google';
 import { Analytics } from '../components/analytics';
+import styles from './layout.module.css';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -17,6 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <p className={styles.navigation}>
+          {/* Using regular <a> tag because this is not an internal Next.js navigation */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a href="/" title="JavaScript Experiments">
+            ← To all experiments
+          </a>
+        </p>
         {children}
         <a href="https://github.com/bouvens/mutual-github">
           <img

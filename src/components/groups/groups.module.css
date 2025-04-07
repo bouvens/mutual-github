@@ -75,9 +75,9 @@
   list-style-type: circle;
 }
 
-.tokenInfo {
-  font-size: 0.9rem !important;
-  color: #666 !important;
+.noToken p.tokenInfo {
+  font-size: 0.9rem;
+  color: #666;
   line-height: 1.5;
 }
 
@@ -97,7 +97,7 @@
     color: #fff;
   }
 
-  .tokenInfo {
-    color: #999 !important;
+  .noToken p.tokenInfo {
+    color: #999;
   }
 }
