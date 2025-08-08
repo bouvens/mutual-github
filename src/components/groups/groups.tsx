@@ -8,6 +8,32 @@ import { MutualFollowingGroup } from './components/MutualFollowingGroup';
 import commonStyles from './components/common.module.css';
 import styles from './groups.module.css';
 
+const TokenInfo = ({
+  onTokenUpdate,
+  buttonText = 'Update Token',
+}: {
+  onTokenUpdate: () => void;
+  buttonText?: string;
+}) => (
+  <>
+    <p className={styles.tokenInfo}>
+      You can generate one at{' '}
+      <a
+        href="https://github.com/settings/tokens"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub Settings
+      </a>
+      <br />
+      Required scopes: read:user, user:follow
+    </p>
+    <button onClick={onTokenUpdate} className={styles.tokenButton}>
+      {buttonText}
+    </button>
+  </>
+);
+
 export function Groups({
   auth,
   onTokenUpdate,
@@ -36,27 +62,19 @@ export function Groups({
           <li>Easily unfollow or follow users in batch</li>
         </ul>
         <p>GitHub token is required to use this application</p>
-        <p className={styles.tokenInfo}>
-          You can generate one at{' '}
-          <a
-            href="https://github.com/settings/tokens"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub Settings
-          </a>
-          <br />
-          Required scopes: read:user, user:follow
-        </p>
-        <button onClick={onTokenUpdate} className={styles.tokenButton}>
-          Enter Token
-        </button>
+        <TokenInfo onTokenUpdate={onTokenUpdate} buttonText="Enter Token" />
       </div>
     );
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return (
+      <div className={styles.noToken}>
+        <h2>Error</h2>
+        <p>Error: {error}</p>
+        <TokenInfo onTokenUpdate={onTokenUpdate} />
+      </div>
+    );
   }
 
   if (isInitialLoad) {
