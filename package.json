@@ -1,6 +1,7 @@
 {
   "name": "github-followers",
   "version": "0.1.0",
+  "author": "Alexander Demin <bouvens@gmail.com> (https://bouvens.github.io/)",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
