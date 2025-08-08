@@ -85,6 +85,10 @@
   margin: 0 auto;
 }
 
+.noToken .tokenButton + .tokenButton {
+  margin-top: 1rem;
+}
+
 @media (prefers-color-scheme: dark) {
   .noToken {
     background: transparent;

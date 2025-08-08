@@ -14,21 +14,22 @@ export default function Home() {
         "The token will be stored only in your browser's local storage and sent only to GitHub."
     );
 
-    // If user clicked "Cancel"
+    // if user clicked "Cancel"
     if (newToken === null) {
       return;
     }
 
-    // If user entered an empty token
-    if (!newToken.trim()) {
-      localStorage.removeItem(TOKEN_STORAGE_KEY);
-      setToken(null);
-      return;
-    }
-
     const trimmedToken = newToken.trim();
-    localStorage.setItem(TOKEN_STORAGE_KEY, trimmedToken);
-    setToken(trimmedToken);
+    if (trimmedToken) {
+      localStorage.setItem(TOKEN_STORAGE_KEY, trimmedToken);
+      setToken(trimmedToken);
+    }
+  };
+
+  const clearToken = () => {
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    setToken(null);
+    return;
   };
 
   useEffect(() => {
@@ -45,7 +46,11 @@ export default function Home() {
 
   return (
     <main>
-      <Groups auth={token || ''} onTokenUpdate={promptForToken} />
+      <Groups
+        auth={token || ''}
+        onTokenUpdate={promptForToken}
+        onClearToken={clearToken}
+      />
     </main>
   );
 }

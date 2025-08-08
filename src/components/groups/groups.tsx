@@ -37,9 +37,11 @@ const TokenInfo = ({
 export function Groups({
   auth,
   onTokenUpdate,
+  onClearToken,
 }: {
   auth: string;
   onTokenUpdate: () => void;
+  onClearToken: () => void;
 }) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { allGroups, error, isInitialLoad, reload } = useGetGroups(auth);
@@ -73,6 +75,9 @@ export function Groups({
         <h2>Error</h2>
         <p>Error: {error}</p>
         <TokenInfo onTokenUpdate={onTokenUpdate} />
+        <button onClick={onClearToken} className={styles.tokenButton}>
+          Clear Token
+        </button>
       </div>
     );
   }
