@@ -111,6 +111,9 @@ export function Groups({
         <button onClick={onTokenUpdate} className={styles.tokenButton}>
           Update Token
         </button>
+        <button onClick={onClearToken} className={styles.tokenButton}>
+          Clear Token
+        </button>
       </div>
       <NonMutualFollowingGroup
         followers={notMutual}
